@@ -1,0 +1,100 @@
+CRITICAL - 2020-10-30 12:40:31 --> Invalid file: home.php
+#0 D:\SILOOMAN\vendor\codeigniter4\framework\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('home.php')
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\Common.php(1119): CodeIgniter\View\View->render('home', Array, true)
+#2 D:\SILOOMAN\app\Controllers\Pages.php(7): view('home')
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Pages->index()
+#4 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+#5 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#6 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#7 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#8 {main}
+CRITICAL - 2020-10-30 18:01:21 --> Invalid file: navbar.php
+#0 D:\SILOOMAN\vendor\codeigniter4\framework\system\View\View.php(228): CodeIgniter\Exceptions\FrameworkException::forInvalidFile('navbar.php')
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\View\View.php(525): CodeIgniter\View\View->render('navbar', NULL, true)
+#2 D:\SILOOMAN\app\Views\layout\template.php(14): CodeIgniter\View\View->include('navbar')
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\View\View.php(246): include('D:\\SILOOMAN\\app...')
+#4 D:\SILOOMAN\vendor\codeigniter4\framework\system\View\View.php(257): CodeIgniter\View\View->render('layout/template', Array, true)
+#5 D:\SILOOMAN\vendor\codeigniter4\framework\system\Common.php(1119): CodeIgniter\View\View->render('pages/home', Array, true)
+#6 D:\SILOOMAN\app\Controllers\Pages.php(10): view('pages/home', Array)
+#7 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Pages->index()
+#8 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Pages))
+#9 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#10 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#11 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#12 {main}
+CRITICAL - 2020-10-30 20:14:31 --> Class 'App\Model\LahanModel' not found
+#0 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Lahan->index()
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lahan))
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#3 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#4 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#5 {main}
+CRITICAL - 2020-10-30 20:14:58 --> Table 'silooman.silooman' doesn't exist
+#0 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT *\nFROM `...')
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\SILOOMAN\vendor\codeigniter4\framework\system\Model.php(462): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\SILOOMAN\app\Controllers\Lahan.php(15): CodeIgniter\Model->findAll()
+#6 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Lahan->index()
+#7 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lahan))
+#8 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#11 {main}
+CRITICAL - 2020-10-30 20:15:43 --> Table 'silooman.silooman' doesn't exist
+#0 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\MySQLi\Connection.php(331): mysqli->query('SELECT *\nFROM `...')
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\BaseConnection.php(741): CodeIgniter\Database\MySQLi\Connection->execute('SELECT *\nFROM `...')
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\BaseConnection.php(669): CodeIgniter\Database\BaseConnection->simpleQuery('SELECT *\nFROM `...')
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\Database\BaseBuilder.php(1860): CodeIgniter\Database\BaseConnection->query('SELECT *\nFROM `...', Array, false)
+#4 D:\SILOOMAN\vendor\codeigniter4\framework\system\Model.php(462): CodeIgniter\Database\BaseBuilder->get()
+#5 D:\SILOOMAN\app\Controllers\Lahan.php(15): CodeIgniter\Model->findAll()
+#6 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Lahan->index()
+#7 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lahan))
+#8 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#9 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#10 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#11 {main}
+CRITICAL - 2020-10-30 20:23:46 --> Undefined variable: lahanModel
+#0 D:\SILOOMAN\app\Controllers\Lahan.php(20): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\SILOOMAN\\app...', 20, Array)
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Lahan->index()
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lahan))
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#6 {main}
+CRITICAL - 2020-10-30 20:26:21 --> Undefined variable: lahanModel
+#0 D:\SILOOMAN\app\Controllers\Lahan.php(12): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\SILOOMAN\\app...', 12, Array)
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(890): App\Controllers\Lahan->__construct()
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#6 {main}
+CRITICAL - 2020-10-30 20:30:41 --> syntax error, unexpected '>'
+#0 D:\SILOOMAN\vendor\codeigniter4\framework\system\Router\Router.php(195): CodeIgniter\Router\Router->autoRoute('lahan')
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(793): CodeIgniter\Router\Router->handle('lahan')
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(364): CodeIgniter\CodeIgniter->tryToRouteIt(Object(CodeIgniter\Router\RouteCollection))
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#6 {main}
+CRITICAL - 2020-10-30 20:30:55 --> Undefined variable: lahanModel
+#0 D:\SILOOMAN\app\Controllers\Lahan.php(11): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined varia...', 'D:\\SILOOMAN\\app...', 11, Array)
+#1 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(890): App\Controllers\Lahan->__construct()
+#2 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(399): CodeIgniter\CodeIgniter->createController()
+#3 D:\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#4 D:\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#5 D:\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\SILOOMAN\\pub...')
+#6 {main}
+CRITICAL - 2020-10-30 22:40:00 --> Undefined index: slug
+#0 D:\xampp\htdocs\SILOOMAN\app\Views\lahan\index.php(31): CodeIgniter\Debug\Exceptions->errorHandler(8, 'Undefined index...', 'D:\\xampp\\htdocs...', 31, Array)
+#1 D:\xampp\htdocs\SILOOMAN\vendor\codeigniter4\framework\system\View\View.php(246): include('D:\\xampp\\htdocs...')
+#2 D:\xampp\htdocs\SILOOMAN\vendor\codeigniter4\framework\system\Common.php(1119): CodeIgniter\View\View->render('lahan/index', Array, true)
+#3 D:\xampp\htdocs\SILOOMAN\app\Controllers\Lahan.php(24): view('lahan/index', Array)
+#4 D:\xampp\htdocs\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(918): App\Controllers\Lahan->index()
+#5 D:\xampp\htdocs\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(404): CodeIgniter\CodeIgniter->runController(Object(App\Controllers\Lahan))
+#6 D:\xampp\htdocs\SILOOMAN\vendor\codeigniter4\framework\system\CodeIgniter.php(312): CodeIgniter\CodeIgniter->handleRequest(NULL, Object(Config\Cache), false)
+#7 D:\xampp\htdocs\SILOOMAN\public\index.php(45): CodeIgniter\CodeIgniter->run()
+#8 D:\xampp\htdocs\SILOOMAN\vendor\codeigniter4\framework\system\Commands\Server\rewrite.php(34): require_once('D:\\xampp\\htdocs...')
+#9 {main}
