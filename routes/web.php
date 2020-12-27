@@ -7,13 +7,20 @@ use App\Http\Controllers\C_EditAktivitas;
 use App\Http\Controllers\C_EditDataLahan;
 use App\Http\Controllers\C_HalamanUtama;
 use App\Http\Controllers\C_KelolaLahan;
+use App\Http\Controllers\C_Keuangan;
 use App\Http\Controllers\C_ListAktivitas;
 use App\Http\Controllers\C_Permintaan;
+use App\Http\Controllers\C_RekapKeuangan;
 use App\Http\Controllers\C_RekapPermintaan;
 use App\Http\Controllers\C_TambahAktivitas;
 use App\Http\Controllers\C_TambahDataLahan;
+use App\Http\Controllers\C_TambahKeuangan;
 use App\Http\Controllers\C_TambahPermintaan;
+use App\Models\M_Aktivitas;
 use Illuminate\Support\Facades\Route;
+
+use App\Models\M_LahanData;
+use Illuminate\Http\Request;
 use App\Http\Controllers\PagesController;
 use App\Http\Controllers\LahanController;
 use App\Http\Controllers\AktivitasController;
@@ -30,14 +37,15 @@ use App\Http\Controllers\PermintaanController;
 |
 */
 
- Route::get('/', function () {
-     return redirect(route('dashboard'));
- });
-Route::middleware(['auth:sanctum','web', 'verified'])->group(function() {
-    Route::view('/dashboard', 'pages.V_HalamanUtama')->name('dashboard');
+Route::get('/', function () {
+    return redirect(route('dashboard'));
+});
+Route::view('/dashboard', 'pages.V_HalamanUtama')->name('dashboard');
+Route::middleware(['auth:sanctum', 'web', 'verified'])->group(function () {
     Route::get('/redirect/data-lahan', [C_HalamanUtama::class, 'getPageKelolaLahan'])->name('getPageKelolaLahan');
     Route::get('/redirect/aktivitas', [C_HalamanUtama::class, 'getPageDataAktivitas'])->name('getPageDataAktivitas');
     Route::get('/redirect/permintaan', [C_HalamanUtama::class, 'getPagePermintaan'])->name('getPagePermintaan');
+    Route::get('/redirect/keuangan', [C_HalamanUtama::class, 'getPageKeuangan'])->name('getPageKeuangan');
 
     Route::get('/data-lahan', [C_KelolaLahan::class, 'setPageKelolaLahan'])->name('setPageKelolaLahan');
     Route::get('/redirect/data-lahan/create', [C_KelolaLahan::class, 'getFormDataLahan'])->name('getFormDataLahan');
@@ -49,10 +57,12 @@ Route::middleware(['auth:sanctum','web', 'verified'])->group(function() {
 
     Route::get('/data-lahan/edit/{id}', [C_EditDataLahan::class, 'setPageEditDataLahan'])->name('setPageEditDataLahan');
     Route::put('/data-lahan/edit/{id}', [C_EditDataLahan::class, 'update'])->name('updateLahan');
+    Route::get('/data-lahan/panen/{id}', [C_EditDataLahan::class, 'setFormPanenDataLahan'])->name('setFormPanenDataLahan');
+    Route::put('/data-lahan/panen/{id}', [C_EditDataLahan::class, 'panen'])->name('panen');
 
     Route::get('/data-lahan/show/{id}', [C_DataLahan::class, 'setPageDetailDataLahan'])->name('setPageDetailDataLahan');
 
-//Aktivitas
+    //Aktivitas
     Route::get('/aktivitas', [C_Aktivitas::class, 'setPageDataAktivitas'])->name('setPageDataAktivitas');
     Route::get('/redirect/aktivitas/lahan/{id}', [C_Aktivitas::class, 'getPageListAktivitasLahan'])->name('getPageListAktivitasLahan');
 
@@ -71,24 +81,53 @@ Route::middleware(['auth:sanctum','web', 'verified'])->group(function() {
     Route::put('/aktivitas/lahan/{id}', [C_EditAktivitas::class, 'update'])->name('updateAktivitas');
 
     //Permintaan
-    Route::get('/permintaan',[C_Permintaan::class,'setPagePermintaan'])->name('setPagePermintaan');
-    Route::get('/redirect/permintaan/rekap/{id}',[C_Permintaan::class,'getPageRekapPermintaan'])->name('getPageRekapPermintaan');
+    Route::get('/permintaan', [C_Permintaan::class, 'setPagePermintaan'])->name('setPagePermintaan');
+    Route::get('/redirect/permintaan/rekap/{id}', [C_Permintaan::class, 'getPageRekapPermintaan'])->name('getPageRekapPermintaan');
 
-    Route::get('/permintaan/rekap/{id}',[C_RekapPermintaan::class,'setPageRekapPermintan'])->name('setPageRekapPermintan');
-    Route::get('/redirect/permintaan/rekap/{id}/create',[C_RekapPermintaan::class,'getFormDataPermintaan'])->name('getFormDataPermintaan');
-    Route::get('/redirect/permintaan/rekap/{id}/edit/{permintaan}',[C_RekapPermintaan::class,'getFormUbahDataPermintaan'])->name('getFormUbahDataPermintaan');
-    Route::get('/permintaan/rekap/{id}/{permintaan}/status/{status}',[C_RekapPermintaan::class,'simpanStatusPermintaan'])->name('simpanStatusPermintaan');
+    Route::get('/permintaan/rekap/{id}', [C_RekapPermintaan::class, 'setPageRekapPermintan'])->name('setPageRekapPermintan');
+    Route::get('/redirect/permintaan/rekap/{id}/create', [C_RekapPermintaan::class, 'getFormDataPermintaan'])->name('getFormDataPermintaan');
+    Route::get('/redirect/permintaan/rekap/{id}/edit/{permintaan}', [C_RekapPermintaan::class, 'getFormUbahDataPermintaan'])->name('getFormUbahDataPermintaan');
+    Route::get('/permintaan/rekap/{id}/{permintaan}/status/{status}', [C_RekapPermintaan::class, 'simpanStatusPermintaan'])->name('simpanStatusPermintaan');
 
-
-
-    Route::get('/permintaan/rekap/{id}/create',[C_TambahPermintaan::class,'setFormDataPermintaan'])->name('setFormDataPermintaan');
+    Route::get('/permintaan/rekap/{id}/create', [C_TambahPermintaan::class, 'setFormDataPermintaan'])->name('setFormDataPermintaan');
     Route::post('/permintaan/rekap/{id}', [C_TambahPermintaan::class, 'simpan'])->name('simpanPermintaan');
     Route::get('/permintaan/rekap/{id}/edit/{permintaan}', [C_TambahPermintaan::class, 'setFormUbahDataPermintaan'])->name('setFormUbahDataPermintaan');
     Route::put('/permintaan/rekap/{id}/edit/{permintaan}', [C_TambahPermintaan::class, 'update'])->name('updatePermintaan');
 
 
+    Route::get('/keuangan', [C_Keuangan::class, 'setPageKeuangan'])->name('setPageKeuangan');
+    Route::get('/redirect/keuangan/rekap/{id}', [C_Keuangan::class, 'getPageRekapKeuangan'])->name('getPageRekapKeuangan');
+
+    Route::get('/keuangan/rekap/{id}/', [C_RekapKeuangan::class, 'setPageRekapKeuangan'])->name('setPageRekapKeuangan');
+    Route::get('/redirect/keuangan/rekap/{id}/create/{permintaan}', [C_RekapKeuangan::class, 'getFormDataKeuangan'])->name('getFormDataKeuangan');
+    //    Route::get('/redirect/keuangan/rekap/{id}/edit/{permintaan}',[C_RekapPermintaan::class,'getFormUbahDataPermintaan'])->name('getFormUbahDataPermintaan');
+    //    Route::get('/permintaan/rekap/{id}/{permintaan}/status/{status}',[C_RekapPermintaan::class,'simpanStatusPermintaan'])->name('simpanStatusPermintaan');
+
+    Route::get('/keuangan/rekap/{id}/create/{permintaan}', [C_TambahKeuangan::class, 'setFormDataKeuangan'])->name('setFormDataKeuangan');
+    Route::post('/keuangan/rekap/{id}/create/{permintaan}', [C_TambahKeuangan::class, 'simpan'])->name('simpanKeuangan');
 
 
+    Route::get('/aktivitas/tanggapan/{tanggapan}', function ($tanggapan) {
+        $m = M_Aktivitas::find($tanggapan);
+        return redirect(\route('setPageDetailAktivitas', [$m->lahan_id, $tanggapan]));
+    })->name('redirect-notif-tanggapan');
+
+    //    Route::get('permintaan/rekap/{id}')
+    //    Route::post('/keuangan/rekap/{id}/create',[C_RekapKeuangan::class,'setPageRekapKeuangan'])->name('setPageRekapKeuangan');
+
+    Route::get('/data-lahan/tambah-obat-pupuk/{id}', function ($id) {
+        $lahan = M_LahanData::findOrFail($id);
+        return view('pages.V_AddMore', compact('id', 'lahan'));
+    })->name('addmore');
+    Route::put('/data-lahan/tambah-obat-pupuk/{id}', function (Request $request, $id) {
+        $request->validate([
+            'obat' => 'required',
+            'pupuk' => 'required'
+        ]);
+        M_LahanData::find($id)->update(['obat' => $request->obat, 'pupuk' => $request->pupuk]);
+
+        return redirect(route('getPageKelolaLahan'));
+    })->name('addmore-obat-pupuk');
 });
 
 //
