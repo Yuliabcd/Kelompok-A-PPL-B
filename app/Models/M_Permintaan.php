@@ -51,8 +51,8 @@ class M_Permintaan extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-//    public function keuangans()
-//    {
-//        return $this->hasMany('App\Models\Keuangan', 'id_permintaan');
-//    }
+    public function keuangan()
+    {
+        return $this->hasOne('App\Models\M_Keuangan', 'id_permintaan');
+    }
 }

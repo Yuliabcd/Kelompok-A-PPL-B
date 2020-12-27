@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Lahan;
 use App\Models\M_LahanData;
-use Illuminate\Http\Request;
 
 class C_Aktivitas extends Controller
 {

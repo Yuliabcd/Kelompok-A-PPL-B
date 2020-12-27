@@ -16,7 +16,8 @@ class C_TambahAktivitas extends Controller
         $request->validate([
             'judul' => 'required',
             'informasi' => 'required',
-            'file' => 'required',
+//            'file' => 'required',
+            'file'=>'mimes:jpeg,jpg,png,gif|required'
         ]);
         $data=$request->all();
         $data['gambar']=date('dmyHis').'.'.$request->file('file')->extension();

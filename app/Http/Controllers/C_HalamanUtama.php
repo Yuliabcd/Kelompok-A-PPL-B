@@ -19,6 +19,10 @@ class C_HalamanUtama extends Controller
         return redirect(route('setPagePermintaan'));
     }
 
+    public function getPageKeuangan(){
+        return redirect(route('setPageKeuangan'));
+    }
+
 
 
 }

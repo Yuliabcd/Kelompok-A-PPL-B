@@ -30,6 +30,7 @@ class M_LahanData extends Model
      * @var string
      */
     protected $table = 'lahan';
+//    protected $dates=['created_at','updated_at','mulai','selesai'];
     use SoftDeletes;
 
     use HasFactory;
@@ -37,7 +38,8 @@ class M_LahanData extends Model
     /**
      * @var array
      */
-    protected $fillable = ['judul', 'lokasi_lahan', 'ukuran_lahan', 'ukuran_lahan_garap', 'periode_tanam', 'jenis_bibit', 'obat', 'pupuk', 'hasil_tanam', 'created_at', 'updated_at', 'deleted_at'];
+//    protected $fillable = ['judul', 'lokasi_lahan', 'ukuran_lahan', 'ukuran_lahan_garap', 'periode_tanam', 'jenis_bibit', 'obat', 'pupuk', 'hasil_tanam', 'created_at', 'updated_at', 'deleted_at'];f
+protected $guarded=[];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -50,4 +52,9 @@ class M_LahanData extends Model
     {
         return $this->hasMany('App\Models\M_Permintaan','id_lahan');
     }
+
+//    public function keuangan()
+//    {
+//        return $this->hasMany('App\Models\M_Permintaan','id_lahan');
+//    }
 }

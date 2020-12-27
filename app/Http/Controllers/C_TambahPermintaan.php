@@ -44,4 +44,6 @@ class C_TambahPermintaan extends Controller
         return redirect(route('getPageRekapPermintaan',$id));
     }
 
+
+
 }
