@@ -2,17 +2,16 @@
     <div>
         <x-slot name="header">
 
-            <h1>Data Aktivitas</h1>
+            <h1>Data Keuangan</h1>
             <div class="section-header-breadcrumb">
                 <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
-                <div class="breadcrumb-item">Aktivitas - pada {{$lahan->judul}}</div>
+                <div class="breadcrumb-item">Permintaan - pada {{$lahan->judul}}</div>
             </div>
         </x-slot>
 
         <div class="mt-3">
             <div class="card">
                 <div class="card-body">
-
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
@@ -21,11 +20,12 @@
                                 @if(Auth::user()->role=="pekerja")
                                     <div class="card-header">
                                         {{--                                {{route('getFormDataAktivitas',$lahan->id)}}--}}
-                                        <a href="{{route('getFormDataAktivitas',$lahan->id)}}" class="btn btn-primary"> Tambah</a>
+                                        <a href="{{route('getFormDataPermintaan',$lahan->id)}}" class="btn btn-primary">
+                                            Tambah</a>
                                     </div>
                                 @endif
                                 <div class="card-body">
-                                    @if(count($lahan->aktivitas))
+                                    @if(count($lahan->permintaan->where('id_statuspermintaan','=',1)))
                                         <div class="table-responsive">
                                             <table class="table table-striped" id="table-1">
                                                 <thead>
@@ -33,24 +33,31 @@
                                                     <th>
                                                         #
                                                     </th>
-                                                    <th>Judul</th>
-                                                    <th>Informasi</th>
+                                                    <th>kebutuhan</th>
+                                                    <th>jumlah</th>
+                                                    <th>Tanggal Beli</th>
                                                     <th>Gambar</th>
-                                                    <th>Tanggapan</th>
+                                                    <th>Harga Total</th>
+                                                    <th>aksi</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @foreach($lahan->aktivitas as $ak)
+                                                @foreach($lahan->permintaan->where('id_statuspermintaan','=',1)  as $ak)
                                                     <tr>
                                                         <td>{{$ak->id}}</td>
-                                                        <td>{{$ak->judul}}</td>
-                                                        <td>{{$ak->informasi}}</td>
-                                                        <td><img src="{{asset('storage/aktivitas/'.$ak->gambar)}}" style="max-height: 100px" alt=""></td>
+                                                        <td>{{$ak->kebutuhan}}</td>
+                                                        <td>{{$ak->jumlah}}</td>
+                                                        <td>{{isset($ak->keuangan->tanggal_beli)?$ak->keuangan->tanggal_beli:''}}</td>
+                                                        <td><img src="{{asset(isset($ak->keuangan->tanggal_beli)?'storage/keuangan/'.$ak->keuangan->bukti:'')}}" alt="" width="300px"></td>
+                                                        <td>{{isset($ak->keuangan->harga)?$ak->keuangan->harga:''}}</td>
                                                         <td>
-                                                            <a href="{{route('setPageDetailAktivitas',[$lahan->id,$ak->id])}}" class="btn btn-info">Lihat</a>
-                                                            @if(Auth::user()->role=="pekerja")
-                                                                <a href="{{route('getFormEditAktivitas',[$ak->id])}}" class="btn btn-primary">Edit</a>
+                                                            @if(!isset($ak->keuangan->tanggal_beli))
+                                                            <a href="{{route('getFormDataKeuangan',[$lahan->id,$ak->id])}}"
+                                                               class="btn btn-info">Lengkapi</a>
+                                                            @else
+                                                                Telah terlengkapi
                                                             @endif
+
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -70,3 +77,4 @@
         </div>
     </div>
 </x-app-layout>
+

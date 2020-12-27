@@ -3,7 +3,7 @@
         <x-slot name="header">
             <h1>Data Aktivitas {{$aktivitas->judul}} - pada {{$lahan->judul}}</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
                 <div class="breadcrumb-item">Aktivitas</div>
             </div>
         </x-slot>
@@ -30,14 +30,18 @@
                             </div>
                         @endif
                         <div class="card indigo-400 col-md-8" style="padding: 0">
-                            <div class="card-body bg-primary @if($ak->user->id ==Auth::id()) text-right @endif"
-                                 style="color: #ffffff; font-size: 20px; width: 100%">
-                                <b>
+                            <div class="card-body bg-primary "
+                            style="color: #ffffff; font-size: 15px; width: 100%; padding: 10px !important; background-color: #946038 !important">
+                            <div class="@if($ak->user->id ==Auth::id()) text-right @endif " style="background-color: #946038 !important">
                                     {{$ak->user->name}}
-                                </b>
+
+                                    <p style="font-size: 10px">{{$ak->created_at->diffForHumans()}}</p>
+                                </div>
+
+
                             </div>
-                            <div class="card-body @if($ak->user->id ==Auth::id()) text-right @endif">
-                                {{$ak->komentar}}a
+                            <div class="card-body @if($ak->user->id ==Auth::id()) text-right @endif" style=" padding: 10px !important;">
+                                {{$ak->komentar}}
                             </div>
                         </div>
                         @if($ak->user->id !=Auth::id())
@@ -56,9 +60,7 @@
                     Tulis komentar disini</h4>
                 @csrf
                 <textarea name="komentar" class="form-control @error('komentar') is-invalid @enderror" id="komentar"
-                          cols="30" rows="100" style="height: 100px" placeholder="tulis komentar disini">
-
-            </textarea>
+                          cols="30" rows="100" style="height: 100px" placeholder="tulis komentar disini"></textarea>
                 @error('komentar')
                 <div id="validationServer03Feedback"
                      class="invalid-feedback"> tanggapan tidak boleh kosong harap diisi

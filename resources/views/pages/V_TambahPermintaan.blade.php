@@ -3,8 +3,8 @@
         <x-slot name="header">
             <h1>Tambah Permintaan</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="#">Data Permintaan</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('getPagePermintaan')}}">Data Permintaan</a></div>
                 <div class="breadcrumb-item">Form Permintaan</div>
             </div>
         </x-slot>

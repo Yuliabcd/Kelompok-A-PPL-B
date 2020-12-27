@@ -4,8 +4,8 @@
             <x-slot name="header">
                 <h1>Edit Permintaan</h1>
                 <div class="section-header-breadcrumb">
-                    <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item active"><a href="#">Data Permintaan</a></div>
+                    <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
+                    <div class="breadcrumb-item active"><a href="{{route('getPagePermintaan')}}">Data Permintaan</a></div>
                     <div class="breadcrumb-item">Form Permintaan</div>
                 </div>
             </x-slot>
@@ -45,9 +45,7 @@
                             <label for="lokasi" class="col-sm-2 col-form-label">keterangan</label>
                             <div class="col-sm-10">
                             <textarea type="text" class="form-control @error('keterangan') is-invalid @enderror"
-                                      id="keterangan" name="keterangan" >
-{{ $permintaan->keterangan }}
-                            </textarea>
+                                      id="keterangan" name="keterangan" >{{ $permintaan->keterangan }}</textarea>
                                 @error('keterangan')
                                 <div id="validationServer03Feedback"
                                      class="invalid-feedback"> {{'keterangan harap diisi!'}} </div>

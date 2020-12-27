@@ -1,10 +1,10 @@
 <x-app-layout>
     <div>
         <x-slot name="header">
-            <h1>Data Lahan</h1>
+            <h1>Edit Aktivitas</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="#">Data Lahan</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('getPageDataAktivitas')}}">Data Aktivitas</a></div>
                 <div class="breadcrumb-item">Form Lahan</div>
             </div>
         </x-slot>
@@ -30,9 +30,7 @@
                             <label for="lokasi" class="col-sm-2 col-form-label">informasi</label>
                             <div class="col-sm-10">
                             <textarea type="text" class="form-control @error('informasi') is-invalid @enderror"
-                                      id="informasi" name="informasi" >
-                                {{$aktivitas->informasi}}
-                            </textarea>
+                                      id="informasi" name="informasi" >{{$aktivitas->informasi}}</textarea>
                                 @error('informasi')
                                 <div id="validationServer03Feedback"
                                      class="invalid-feedback"> {{'Informasi tambahan harap diisi!'}} </div>
@@ -54,7 +52,7 @@
 
                         <div class="float-right">
 
-                            <a href="{{route('setPageListAktivitasLahan',$id)}}" type="submit" class="btn btn-danger">Batal</a>
+                            <a href="/lahan" type="submit" class="btn btn-danger">Batal</a>
                             <button type="submit" class="btn btn-primary">Simpan</button>
 
                         </div>
@@ -64,3 +62,4 @@
         </div>
     </div>
 </x-app-layout>
+

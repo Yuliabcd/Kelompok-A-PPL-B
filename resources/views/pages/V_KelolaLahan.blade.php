@@ -3,7 +3,7 @@
         <x-slot name="header">
             <h1>Data Lahan</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
                 {{--        <div class="breadcrumb-item">Form Lahan</div>--}}
             </div>
         </x-slot>
@@ -49,16 +49,17 @@
                                                         <td>{{$l->lokasi_lahan}}</td>
                                                         <td>{{$l->ukuran_lahan}}</td>
                                                         <td>{{$l->ukuran_lahan_garap}}</td>
-                                                        <td>{{$l->periode_tanam}}</td>
+                                                        <td>@if($l->selesai!=null){{(strtotime($l->selesai)-strtotime($l->mulai))/3600/24}} Hari @endif </td>
                                                         <td>{{$l->jenis_bibit}}</td>
                                                         <td>{{$l->obat}}</td>
                                                         <td>{{$l->pupuk}}</td>
                                                         <td>{{$l->hasil_tanam}}</td>
                                                         <td>
-
                                                             <a href="{{route('getDataLahan',$l->id)}}" class="btn btn-info">Detail</a>
                                                             @if(Auth::user()->role=="pekerja")
+                                                                <a href="{{route('addmore',$l->id)}}" class="btn btn-primary">Tambah Pupuk dan Obat</a>
                                                                 <a href="{{route('getFormEditDataLahan',$l->id)}}" class="btn btn-primary">Ubah</a>
+                                                                <a href="{{route('setFormPanenDataLahan',$l->id)}}" class="btn btn-primary">Panen</a>
                                                             @endif
                                                         </td>
                                                     </tr>

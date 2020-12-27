@@ -56,6 +56,7 @@
     <!-- CSS Libraries -->
     <link rel="stylesheet" href="{{asset('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.min.css')}}">
     <link rel="stylesheet" href="{{asset('node_modules/datatables.net-select-bs4/css/select.bootstrap4.min.css')}}">
+    <link rel="stylesheet" href="{{asset('node_modules/bootstrap-daterangepicker/daterangepicker.css')}}">
 
     <!-- Template CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/style.css')}}">
@@ -86,6 +87,7 @@
                     <i class="fas fa-ellipsis-v"></i>
                 </a>
                 <ul class="navbar-nav">
+                    @if(Auth::check())
                     <li class="nav-item"><a href="{{route('dashboard')}}" class="nav-link">Dashboard</a></li>
                     {{--                    @if(Auth::user()->role=="pekerja")--}}
                     <li class="nav-item"><a href="{{route('getPageKelolaLahan')}}" class="nav-link">Kelola data
@@ -94,44 +96,114 @@
                     <li class="nav-item"><a href="{{route('getPageDataAktivitas')}}" class="nav-link">Aktivitas</a></li>
 
                     <li class="nav-item"><a href="{{route('getPagePermintaan')}}" class="nav-link">Permintaan</a></li>
+                    
+                        @if(Auth::user()->role=="pemilik")
+                            <li class="nav-item"><a href="{{route('getPageKeuangan')}}" class="nav-link">Keuangan</a>
+                            </li>
+                        @endif
 
+                    @endif
                 </ul>
 
             </div>
             <form class="form-inline ml-auto">
 
             </form>
-
-            <ul class="navbar-nav navbar-right">
-                {{--                @livewire('navigation-dropdown')--}}
-                <li class="dropdown"><a href="#" data-turbolinks="false" data-toggle="dropdown"
-                                        class="nav-link dropdown-toggle nav-link-lg nav-link-user">
-                        @if (!is_null(Auth::user()))
-                            <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
-                    @else
-                        <div class="d-sm-none d-lg-inline-block">Hi, Welcome</div></a>
-                    @endif
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a href="{{route('profile.show')}}" class="dropdown-item has-icon">
-                            <i class="far fa-user"></i> Profile
-                        </a>
-                        @if (request()->get('is_admin'))
-                            <a href="/setting" class="dropdown-item has-icon">
-                                <i class="fas fa-cog"></i> Setting
-                            </a>
+            @if(Auth::check())
+                <ul class="navbar-nav navbar-right">
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                                                                 class="nav-link notification-toggle nav-link-lg beep"><i
+                                class="far fa-bell"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Permintaan
+                                <div class="float-right">
+                                    {{--                                <a href="#">Mark All As Read</a>--}}
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                @foreach(Notif::setPermintaan() as $notif)
+{{--                                    {{dd($notif)}}--}}
+                                    <a href="{{route('setPageRekapPermintan',$notif->id_lahan)}}"
+                                       class="dropdown-item dropdown-item-unread">
+                                        <div class="dropdown-item-icon bg-primary text-white">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                                        <div class="dropdown-item-desc">
+                                            {{$notif->kebutuhan}}
+                                            <div
+                                                class="time text-primary">{{$notif->statusPermintaan->status_permintaan}}</div>
+                                            <div class="time text-primary">{{$notif->updated_at->diffForHumans()}}</div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                            {{--                        <div class="dropdown-footer text-center">--}}
+                            {{--                            <a href="#">View All <i class="fas fa-chevron-right"></i></a>--}}
+                            {{--                        </div>--}}
+                        </div>
+                    </li>
+                    <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"
+                                                                 class="nav-link notification-toggle nav-link-lg beep"><i
+                                class="fas fa-comments"></i></a>
+                        <div class="dropdown-menu dropdown-list dropdown-menu-right">
+                            <div class="dropdown-header">Tanggapan Terbaru
+                                <div class="float-right">
+                                    {{--                                <a href="#">Mark All As Read</a>--}}
+                                </div>
+                            </div>
+                            <div class="dropdown-list-content dropdown-list-icons">
+                                @foreach(Notif::setTanggapan() as $notif)
+                                    <a href="{{route('redirect-notif-tanggapan',$notif->id_aktivitas)}}"
+                                       class="dropdown-item dropdown-item-unread">
+                                        <div class="dropdown-item-icon bg-primary text-white">
+                                            <i class="fas fa-eye"></i>
+                                        </div>
+                                        <div class="dropdown-item-desc">
+                                            {{$notif->komentar}}
+                                            <div class="time text-primary">{{$notif->user->name}}</div>
+                                            <div class="time text-primary">{{$notif->updated_at->diffForHumans()}}</div>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                            {{--                        <div class="dropdown-footer text-center">--}}
+                            {{--                            <a href="#">View All <i class="fas fa-chevron-right"></i></a>--}}
+                            {{--                        </div>--}}
+                        </div>
+                    </li>
+                    {{--                @livewire('navigation-dropdown')--}}
+                    <li class="dropdown"><a href="#" data-turbolinks="false" data-toggle="dropdown"
+                                            class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                            @if (!is_null(Auth::user()))
+                                <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->name }}</div></a>
+                        @else
+                            <div class="d-sm-none d-lg-inline-block">Hi, Welcome</div></a>
                         @endif
-                        <div class="dropdown-divider"></div>
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
-                               onclick="event.preventDefault();this.closest('form').submit();">
-                                <i class="fas fa-sign-out-alt"></i> Logout
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a href="{{route('profile.show')}}" class="dropdown-item has-icon">
+                                <i class="far fa-user"></i> Profile
                             </a>
-                        </form>
-                    </div>
-                </li>
-            </ul>
+                            @if (request()->get('is_admin'))
+                                <a href="/setting" class="dropdown-item has-icon">
+                                    <i class="fas fa-cog"></i> Setting
+                                </a>
+                            @endif
+                            <div class="dropdown-divider"></div>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+
+                                <a href="{{ route('logout') }}" class="dropdown-item has-icon text-danger"
+                                   onclick="event.preventDefault();this.closest('form').submit();">
+                                    <i class="fas fa-sign-out-alt"></i> Logout
+                                </a>
+                            </form>
+                        </div>
+                    </li>
+
+                </ul>
+            @else
+                <a href="{{route('login')}}" class="btn btn-primary">Login</a>
+            @endif
 
             {{--            <ul class="navbar-nav navbar-right">--}}
             {{--                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"--}}
@@ -202,89 +274,8 @@
             {{--                        </div>--}}
             {{--                    </div>--}}
             {{--                </li>--}}
-            {{--                <li class="dropdown dropdown-list-toggle"><a href="#" data-toggle="dropdown"--}}
-            {{--                                                             class="nav-link notification-toggle nav-link-lg beep"><i--}}
-            {{--                            class="far fa-bell"></i></a>--}}
-            {{--                    <div class="dropdown-menu dropdown-list dropdown-menu-right">--}}
-            {{--                        <div class="dropdown-header">Notifications--}}
-            {{--                            <div class="float-right">--}}
-            {{--                                <a href="#">Mark All As Read</a>--}}
-            {{--                            </div>--}}
-            {{--                        </div>--}}
-            {{--                        <div class="dropdown-list-content dropdown-list-icons">--}}
-            {{--                            <a href="#" class="dropdown-item dropdown-item-unread">--}}
-            {{--                                <div class="dropdown-item-icon bg-primary text-white">--}}
-            {{--                                    <i class="fas fa-code"></i>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="dropdown-item-desc">--}}
-            {{--                                    Template update is available now!--}}
-            {{--                                    <div class="time text-primary">2 Min Ago</div>--}}
-            {{--                                </div>--}}
-            {{--                            </a>--}}
-            {{--                            <a href="#" class="dropdown-item">--}}
-            {{--                                <div class="dropdown-item-icon bg-info text-white">--}}
-            {{--                                    <i class="far fa-user"></i>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="dropdown-item-desc">--}}
-            {{--                                    <b>You</b> and <b>Dedik Sugiharto</b> are now friends--}}
-            {{--                                    <div class="time">10 Hours Ago</div>--}}
-            {{--                                </div>--}}
-            {{--                            </a>--}}
-            {{--                            <a href="#" class="dropdown-item">--}}
-            {{--                                <div class="dropdown-item-icon bg-success text-white">--}}
-            {{--                                    <i class="fas fa-check"></i>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="dropdown-item-desc">--}}
-            {{--                                    <b>Kusnaedi</b> has moved task <b>Fix bug header</b> to <b>Done</b>--}}
-            {{--                                    <div class="time">12 Hours Ago</div>--}}
-            {{--                                </div>--}}
-            {{--                            </a>--}}
-            {{--                            <a href="#" class="dropdown-item">--}}
-            {{--                                <div class="dropdown-item-icon bg-danger text-white">--}}
-            {{--                                    <i class="fas fa-exclamation-triangle"></i>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="dropdown-item-desc">--}}
-            {{--                                    Low disk space. Let's clean it!--}}
-            {{--                                    <div class="time">17 Hours Ago</div>--}}
-            {{--                                </div>--}}
-            {{--                            </a>--}}
-            {{--                            <a href="#" class="dropdown-item">--}}
-            {{--                                <div class="dropdown-item-icon bg-info text-white">--}}
-            {{--                                    <i class="fas fa-bell"></i>--}}
-            {{--                                </div>--}}
-            {{--                                <div class="dropdown-item-desc">--}}
-            {{--                                    Welcome to Stisla template!--}}
-            {{--                                    <div class="time">Yesterday</div>--}}
-            {{--                                </div>--}}
-            {{--                            </a>--}}
-            {{--                        </div>--}}
-            {{--                        <div class="dropdown-footer text-center">--}}
-            {{--                            <a href="#">View All <i class="fas fa-chevron-right"></i></a>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                </li>--}}
-            {{--                <li class="dropdown"><a href="#" data-toggle="dropdown"--}}
-            {{--                                        class="nav-link dropdown-toggle nav-link-lg nav-link-user">--}}
-            {{--                        <img alt="image" src="../assets/img/avatar/avatar-1.png" class="rounded-circle mr-1">--}}
-            {{--                        <div class="d-sm-none d-lg-inline-block">Hi, Ujang Maman</div>--}}
-            {{--                    </a>--}}
-            {{--                    <div class="dropdown-menu dropdown-menu-right">--}}
-            {{--                        <div class="dropdown-title">Logged in 5 min ago</div>--}}
-            {{--                        <a href="features-profile.html" class="dropdown-item has-icon">--}}
-            {{--                            <i class="far fa-user"></i> Profile--}}
-            {{--                        </a>--}}
-            {{--                        <a href="features-activities.html" class="dropdown-item has-icon">--}}
-            {{--                            <i class="fas fa-bolt"></i> Activities--}}
-            {{--                        </a>--}}
-            {{--                        <a href="features-settings.html" class="dropdown-item has-icon">--}}
-            {{--                            <i class="fas fa-cog"></i> Settings--}}
-            {{--                        </a>--}}
-            {{--                        <div class="dropdown-divider"></div>--}}
-            {{--                        <a href="#" class="dropdown-item has-icon text-danger">--}}
-            {{--                            <i class="fas fa-sign-out-alt"></i> Logout--}}
-            {{--                        </a>--}}
-            {{--                    </div>--}}
-            {{--                </li>--}}
+
+
             {{--            </ul>--}}
         </nav>
 
@@ -341,7 +332,7 @@
 <!-- JS Libraies -->
 <script src="{{asset('node_modules/datatables/media/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{asset('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
-
+<script src="{{asset('node_modules/bootstrap-daterangepicker/daterangepicker.js')}}"></script>
 <!-- Page Specific JS File -->
 
 <script src="{{asset('assets/js/page/modules-datatables.js')}}"></script>

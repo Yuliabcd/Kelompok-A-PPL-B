@@ -3,8 +3,8 @@
         <x-slot name="header">
             <h1>Edit Lahan</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                <div class="breadcrumb-item active"><a href="#">Data Lahan</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('getPageKelolaLahan')}}">Data Lahan</a></div>
                 <div class="breadcrumb-item">Edit Lahan</div>
             </div>
         </x-slot>
@@ -40,7 +40,7 @@
                         <div class="form-group row">
                             <label for="ukuran" class="col-sm-2 col-form-label">Ukuran Lahan</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control @error('ukuran_lahan') is-invalid @enderror"
+                                <input type="number" step='0.0000001' class="form-control @error('ukuran_lahan') is-invalid @enderror"
                                        id="ukuran_lahan" name="ukuran_lahan" value="{{$lahan->ukuran_lahan}}" style="width: 90%; display: inline"> ha
                                 @error('ukuran_lahan')
                                 <div id="validationServer03Feedback"
@@ -51,7 +51,7 @@
                         <div class="form-group row">
                             <label for="lahan garap" class="col-sm-2 col-form-label">Ukuran Lahan Garap</label>
                             <div class="col-sm-10">
-                                <input type="text"
+                                <input type="number" step='0.0000001'
                                        class="form-control @error('ukuran_lahan_garap') is-invalid @enderror"
                                        id="ukuran_lahan_garap" name="ukuran_lahan_garap"
                                        value="{{$lahan->ukuran_lahan_garap}}" style="width: 90%; display: inline"> ha
@@ -61,17 +61,17 @@
                                 @enderror
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="periode" class="col-sm-2 col-form-label">Periode Tanam</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control @error('periode_tanam') is-invalid @enderror"
-                                       id="periode_tanam" name="periode_tanam" value="{{$lahan->periode_tanam}}">
-                                @error('periode_tanam')
-                                <div id="validationServer03Feedback"
-                                     class="invalid-feedback"> {{'Periode Tanam harap diisi!'}} </div>
-                                @enderror
-                            </div>
-                        </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label for="periode" class="col-sm-2 col-form-label">Periode Tanam</label>--}}
+{{--                            <div class="col-sm-10">--}}
+{{--                                <input type="text" class="form-control @error('periode_tanam') is-invalid @enderror"--}}
+{{--                                       id="periode_tanam" name="periode_tanam" value="{{$lahan->periode_tanam}}">--}}
+{{--                                @error('periode_tanam')--}}
+{{--                                <div id="validationServer03Feedback"--}}
+{{--                                     class="invalid-feedback"> {{'Periode Tanam harap diisi!'}} </div>--}}
+{{--                                @enderror--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="form-group row">
                             <label for="bibit" class="col-sm-2 col-form-label">Jenis Bibit</label>
                             <div class="col-sm-10">
@@ -104,11 +104,24 @@
                                 @enderror
                             </div>
                         </div>
+{{--                        <div class="form-group row">--}}
+{{--                            <label for="hasil" class="col-sm-2 col-form-label">Hasil Tanam</label>--}}
+{{--                            <div class="col-sm-10">--}}
+{{--                                <input type="text" class="form-control @error('hasil_tanam') is-invalid @enderror" id="hasil_tanam" name="hasil_tanam"--}}
+{{--                                       value="{{$lahan->hasil_tanam}}" style="width: 90%; display: inline"> ton--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div class="form-group row">
-                            <label for="hasil" class="col-sm-2 col-form-label">Hasil Tanam</label>
+                            <label for="lahan garap" class="col-sm-2 col-form-label">Mulai</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control @error('hasil_tanam') is-invalid @enderror" id="hasil_tanam" name="hasil_tanam"
-                                       value="{{$lahan->hasil_tanam}}" style="width: 90%; display: inline"> ton
+                                <input type="text"
+                                       class="form-control datepicker @error('mulai') is-invalid @enderror"
+                                       id="ukuran_lahan_garap" name="mulai"
+                                       value="{{ $lahan->mulai }}" style="width: 90%; display: inline">
+                                @error('mulai')
+                                <div id="validationServer03Feedback"
+                                     class="invalid-feedback"> {{'Awal mulai harap diisi!'}} </div>
+                                @enderror
                             </div>
                         </div>
                         <div class="float-right">

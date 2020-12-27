@@ -4,7 +4,7 @@
 
             <h1>Data Permintaan</h1>
             <div class="section-header-breadcrumb">
-                <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
+                <div class="breadcrumb-item active"><a href="{{route('dashboard')}}">Dashboard</a></div>
                 <div class="breadcrumb-item">Permintaan - pada {{$lahan->judul}}</div>
             </div>
         </x-slot>
@@ -37,6 +37,7 @@
                                                     <th>kebutuhan</th>
                                                     <th>jumlah</th>
                                                     <th>keterangan</th>
+                                                    <th>bukti</th>
                                                     <th>status</th>
                                                     <th>aksi</th>
                                                 </tr>
@@ -48,21 +49,21 @@
                                                         <td>{{$ak->kebutuhan}}</td>
                                                         <td>{{$ak->jumlah}}</td>
                                                         <td>{{$ak->keterangan}}</td>
+                                                        <td><img src="{{asset(isset($ak->keuangan->tanggal_beli)?'storage/keuangan/'.$ak->keuangan->bukti:'')}}" alt="" width="300px"></td>
                                                         <td>{{$ak->statusPermintaan->status_permintaan}}</td>
                                                         <td>
                                                             @if(Auth::user()->role=="pemilik")
                                                                 {{--                                                                @for($i=0;$i<3;$i++)--}}
-                                                                @if($ak->id_statuspermintaan!=1)
+                                                                @if($ak->id_statuspermintaan==0)
                                                                     <a href="{{route('simpanStatusPermintaan',[$lahan->id,$ak->id,1])}}"
                                                                        class="btn btn-primary">Setujui</a>
-                                                                @endif
-                                                                @if($ak->id_statuspermintaan!=0)
-                                                                    <a href="{{route('simpanStatusPermintaan',[$lahan->id,$ak->id,0])}}"
-                                                                       class="btn btn-warning">Buat Menunggu</a>
-                                                                @endif
-                                                                @if($ak->id_statuspermintaan!=2)
                                                                     <a href="{{route('simpanStatusPermintaan',[$lahan->id,$ak->id,2])}}"
                                                                        class="btn btn-danger">Tolak</a>
+
+                                                                @elseif($ak->id_statuspermintaan==1)
+                                                                    Permintaan sudah disetujui
+                                                                @elseif($ak->id_statuspermintaan==2)
+                                                                    Permintaan sudah ditolak
                                                                 @endif
 
                                                             @else
@@ -93,3 +94,4 @@
         </div>
     </div>
 </x-app-layout>
+
